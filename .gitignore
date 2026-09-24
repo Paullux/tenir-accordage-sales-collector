@@ -26,3 +26,7 @@ dist/
 build/
 .coverage
 htmlcov/
+
+# Local session notes
+context/
+context.zip
