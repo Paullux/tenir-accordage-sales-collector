@@ -1,0 +1,5 @@
+Transaction Date,Title,ISBN,Country of Sale,Currency,Transaction Type,Quantity,Publisher Proceeds,Transaction ID
+2026-01-14,Tenir l'accordage,9781234567890,FR,EUR,Sale,2,5.00,GP-001
+2026-01-15,Tenir l'accordage,9781234567890,FR,EUR,Refund,1,2.50,GP-002
+2026-01-16,Un Autre Livre,9789999999999,FR,EUR,Sale,1,2.00,GP-003
+2026-01-17,Tenir l'accordage,9781234567890,US,USD,Sale,1,3.00,GP-004

@@ -1,0 +1,6 @@
+Royalty Date,Title,Author Name,ASIN/ISBN,Marketplace,Royalty Type,Transaction Type,Net Units Sold,Currency,Royalty,Order ID,KENP Read
+2026-01-05,Tenir l'accordage,Paul Woisard,9781234567890,Amazon.fr,70%,Standard,3,EUR,6.30,ORD-001,
+2026-01-06,Un Autre Livre,Paul Woisard,9789999999999,Amazon.fr,70%,Standard,5,EUR,10.00,ORD-002,
+2026-01-07,Tenir l'accordage,Paul Woisard,9781234567890,Amazon.fr,70%,KENP Read,,EUR,3.50,ORD-003,1200
+2026-01-08,Tenir l'accordage,Paul Woisard,9781234567890,Amazon.fr,70%,Standard,-1,EUR,-2.10,ORD-004,
+2026-01-09,Tenir l'accordage,Paul Woisard,9781234567890,Amazon.com,35%,Standard,2,USD,4.00,ORD-005,

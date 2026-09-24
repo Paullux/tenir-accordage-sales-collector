@@ -1,0 +1,25 @@
+services:
+  collector:
+    image: ghcr.io/paullux/tenir-accordage-sales-collector:latest
+    # build: .   # uncomment to build locally instead of pulling from GHCR
+    restart: unless-stopped
+    environment:
+      BOOK_TITLE: ${BOOK_TITLE:-Tenir l'accordage}
+      BOOK_ISBN: ${BOOK_ISBN:-}
+      TARGET_CURRENCY: ${TARGET_CURRENCY:-EUR}
+      FX_RATES_TO_EUR: ${FX_RATES_TO_EUR:-{"USD": 0.92, "GBP": 1.17}}
+      SYNC_INTERVAL_MINUTES: ${SYNC_INTERVAL_MINUTES:-360}
+      COLLECTOR_API_TOKEN: ${COLLECTOR_API_TOKEN:?Set COLLECTOR_API_TOKEN in .env}
+      AMAZON_BROWSER_SYNC: ${AMAZON_BROWSER_SYNC:-false}
+      KOBO_BROWSER_SYNC: ${KOBO_BROWSER_SYNC:-false}
+      GOOGLE_BROWSER_SYNC: ${GOOGLE_BROWSER_SYNC:-false}
+    volumes:
+      - ./data:/data
+    ports:
+      - "8080:8080"
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://127.0.0.1:8080/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s

@@ -1,0 +1,28 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+.env
+*.sqlite
+*.sqlite-journal
+
+# Keep the runtime data directory structure but ignore its actual contents
+# (reports, sessions, the SQLite DB) — see the .gitkeep files below.
+data/*
+!data/imports/
+data/imports/*
+!data/imports/amazon/
+!data/imports/kobo/
+!data/imports/google/
+!data/imports/amazon/.gitkeep
+!data/imports/kobo/.gitkeep
+!data/imports/google/.gitkeep
+!data/sessions/
+!data/sessions/.gitkeep
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+dist/
+build/
+.coverage
+htmlcov/

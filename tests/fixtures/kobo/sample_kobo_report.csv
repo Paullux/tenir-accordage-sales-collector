@@ -1,0 +1,5 @@
+Transaction Date,Title,ISBN,Country,Currency,Net Units Sold,Units Returned,Net Revenue,Transaction ID
+2026-01-10,Tenir l'accordage,9781234567890,FR,EUR,4,0,7.20,KOBO-001
+2026-01-11,Tenir l'accordage,9781234567890,FR,EUR,2,1,1.80,KOBO-002
+2026-01-12,Un Autre Livre,9789999999999,FR,EUR,3,0,5.40,KOBO-003
+2026-01-13,Tenir l'accordage,9781234567890,GB,GBP,1,0,1.00,KOBO-004

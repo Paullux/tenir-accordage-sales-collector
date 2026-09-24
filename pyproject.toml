@@ -1,0 +1,48 @@
+[project]
+name = "tenir-accordage-sales-collector"
+version = "1.0.0"
+description = "Autonomous, read-only sales collector for Amazon KDP, Kobo Writing Life and Google Play Books, exposing a JSON feed for the Book Sales Dashboard WordPress plugin."
+readme = "README.md"
+requires-python = ">=3.12"
+license = { text = "MIT" }
+authors = [{ name = "paullux" }]
+
+dependencies = [
+    "fastapi>=0.115,<1.0",
+    "uvicorn[standard]>=0.30,<1.0",
+    "pydantic>=2.7,<3.0",
+    "pydantic-settings>=2.3,<3.0",
+    "openpyxl>=3.1,<4.0",
+]
+
+[project.optional-dependencies]
+browser = [
+    "playwright>=1.45,<2.0",
+]
+dev = [
+    "pytest>=8.2,<9.0",
+    "pytest-asyncio>=0.23,<1.0",
+    "httpx>=0.27,<1.0",
+    "ruff>=0.5,<1.0",
+]
+
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["app*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.ruff.lint.flake8-bugbear]
+extend-immutable-calls = ["fastapi.Depends", "fastapi.params.Depends"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
