@@ -19,6 +19,7 @@ class Settings(BaseSettings):
     collector_api_token: str = ""
 
     sync_interval_minutes: int = 360
+    stale_after_minutes: int = 60
 
     amazon_browser_sync: bool = False
     kobo_browser_sync: bool = False

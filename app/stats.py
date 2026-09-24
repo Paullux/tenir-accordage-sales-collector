@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import datetime
+from datetime import UTC, datetime, timedelta
 
 from app.config import Settings
 from app.db import Database
@@ -30,6 +30,20 @@ def build_stats(db: Database, settings: Settings) -> dict:
         },
         "updated_at": datetime.now().astimezone().isoformat(timespec="seconds"),
     }
+
+
+def is_stale(db: Database, settings: Settings) -> bool:
+    """True if any platform was never synced or its last sync is older than
+    STALE_AFTER_MINUTES."""
+    known = db.get_status()
+    threshold = datetime.now(UTC) - timedelta(minutes=settings.stale_after_minutes)
+    for platform in ("amazon", "kobo", "google"):
+        last = (known.get(platform) or {}).get("last_sync")
+        if not last:
+            return True
+        if datetime.fromisoformat(last.replace("Z", "+00:00")) < threshold:
+            return True
+    return False
 
 
 def build_status(db: Database) -> dict:

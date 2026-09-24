@@ -53,3 +53,18 @@ def test_stats_reflects_imported_totals(app_client: TestClient, data_dir: Path, 
     resp = app_client.get("/v1/stats", headers={"Authorization": f"Bearer {TEST_TOKEN}"})
     body = resp.json()
     assert body["platforms"]["amazon"] == {"sales": 4, "revenue": 7.8}
+
+
+def test_stats_call_triggers_sync_when_stale(app_client: TestClient, settings, monkeypatch):
+    import app.main as main_module
+
+    calls = []
+
+    async def fake_run_sync(db, cfg):
+        calls.append(1)
+        return True
+
+    monkeypatch.setattr(main_module, "run_sync", fake_run_sync)
+    resp = app_client.get("/v1/stats", headers={"Authorization": f"Bearer {TEST_TOKEN}"})
+    assert resp.status_code == 200
+    assert calls == [1]

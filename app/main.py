@@ -4,13 +4,13 @@ import asyncio
 import logging
 from contextlib import asynccontextmanager
 
-from fastapi import Depends, FastAPI, Request, Response, status
+from fastapi import BackgroundTasks, Depends, FastAPI, Request, Response, status
 from fastapi.responses import JSONResponse
 
 from app.auth import require_bearer_token
 from app.config import Settings, get_settings
 from app.db import Database
-from app.stats import build_stats, build_status
+from app.stats import build_stats, build_status, is_stale
 from app.sync import is_syncing, run_sync, scheduler_loop
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s: %(message)s")
@@ -69,8 +69,12 @@ def get_status(settings: Settings = Depends(get_settings)) -> dict:
 
 
 @app.get("/v1/stats", dependencies=[Depends(require_bearer_token)])
-def get_stats(settings: Settings = Depends(get_settings)) -> dict:
+def get_stats(
+    background_tasks: BackgroundTasks, settings: Settings = Depends(get_settings)
+) -> dict:
     db = _database_for(settings)
+    if not is_syncing() and is_stale(db, settings):
+        background_tasks.add_task(run_sync, db, settings)
     return build_stats(db, settings)
 
 
